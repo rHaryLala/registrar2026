@@ -5,7 +5,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { initializeTheme } from './hooks/use-appearance';
 import PageTransition from './components/page-transition';
-import { router } from '@inertiajs/react'; // <- important pour écouter les events
+import { router } from '@inertiajs/react'; 
 
 const appName = import.meta.env.VITE_APP_NAME || 'UAZ Campus';
 
@@ -33,6 +33,7 @@ createInertiaApp({
 // Initialisation du thème
 initializeTheme();
 
+// 
 // 🔥 Ajout des événements Inertia pour lancer les transitions
 router.on('start', () => {
     document.body.classList.add('page-transitioning'); // ou appelle une fonction dans PageTransition

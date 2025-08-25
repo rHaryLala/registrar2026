@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('plain_password')->nullable();
+            $table->string('telephone')->nullable();
+            $table->foreignId('role_id')->default(1)->constrained('roles');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -47,7 +49,7 @@ return new class extends Migration
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('plain_password');
+            $table->dropColumn(['plain_password', 'telephone']);
         });
     }
 };

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Role;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\Student;
 
 class User extends Authenticatable
 {
@@ -21,7 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'plain_password',
         'profile_photo_path',
+        'role_id',
+        'telephone',
     ];
 
     /**
@@ -31,8 +37,17 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'plain_password',
         'remember_token',
     ];
+
+    /**
+     * Relation avec le modèle Student
+     */
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -45,5 +60,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the role that owns the user.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

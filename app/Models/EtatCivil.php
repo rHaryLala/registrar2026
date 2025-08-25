@@ -5,18 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Contact extends Model
+class EtatCivil extends Model
 {
+    protected $table = 'etat_civil';
+
     protected $fillable = [
         'student_id',
-        'adresse',
-        'region',
-        'telephone',
-        'email'
+        'situation',
+        'nom_conjoint',
+        'nb_enfant'
+    ];
+
+    protected $casts = [
+        'nb_enfant' => 'integer',
     ];
 
     /**
-     * Get the student that owns the contact information.
+     * Get the student that owns the etat civil record.
      */
     public function student(): BelongsTo
     {
