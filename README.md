@@ -1,4 +1,4 @@
-# Registrar2026
+# Registrar2026 (En cours de réalisation)
 
 Gestion des inscriptions et du suivi académique des étudiants pour UAZ Campus.
 
