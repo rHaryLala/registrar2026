@@ -17,7 +17,7 @@ export interface NavGroup {
 
 export interface NavItem {
     title: string;
-    href?: string;
+    href: string;
     icon?: LucideIcon | null;
     isActive?: boolean;
     items?: NavItem[];
@@ -40,6 +40,9 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    role_id?: number;
+    is_admin: boolean;
+    isAdmin: () => boolean;
     [key: string]: unknown; // This allows for additional properties...
 }
 

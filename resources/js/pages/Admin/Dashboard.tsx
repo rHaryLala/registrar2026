@@ -19,7 +19,7 @@ interface DashboardProps {
 
 export default function Dashboard({ studentCount }: DashboardProps) {
     const handleCardClick = useCallback(() => {
-        window.location.href = '/students';
+        window.location.href = '/admin/students';
     }, []);
 
     return (

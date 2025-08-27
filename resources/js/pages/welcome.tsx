@@ -38,10 +38,10 @@ export default function Welcome() {
                     <nav className="flex items-center justify-end gap-4">
                         {auth.user ? (
                             <Link
-                                href={route('dashboard')}
+                                href={auth.user.is_admin ? route('admin.dashboard') : route('student.profile')}
                                 className="inline-block rounded-sm border border-[#1e3a8a35] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1e3a8a4a] dark:border-[#3b82f6] dark:text-[#EDEDEC] dark:hover:border-[#60a5fa]"
                             >
-                                Tableau de bord
+                                {auth.user.is_admin ? 'Tableau de bord' : 'Mon profil'}
                             </Link>
                         ) : (
                             <>
@@ -52,7 +52,7 @@ export default function Welcome() {
                                     Connexion
                                 </Link>
                                 <Link
-                                    href={route('register')}
+                                    href="/register/student"
                                     className="inline-block rounded-sm border border-[#1e3a8a35] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1e3a8a4a] dark:border-[#3b82f6] dark:text-[#EDEDEC] dark:hover:border-[#60a5fa]"
                                 >
                                     S'inscrire
@@ -142,7 +142,7 @@ export default function Welcome() {
                             <ul className="flex gap-3 text-sm leading-normal">
                                 <li>
                                     <a
-                                        href="/dashboard"
+                                        href="admin/dashboard"
                                         // className="inline-block rounded-sm border border-[#1e3a8a] bg-[#1e3a8a] px-5 py-1.5 text-sm leading-normal text-white hover:border-[#1e40af] hover:bg-[#1e40af] dark:border-[#3b82f6] dark:bg-[#3b82f6] dark:text-white dark:hover:border-[#2563eb] dark:hover:bg-[#2563eb]"
                                     >
                                           <GlareHover

@@ -5,7 +5,8 @@ import {
   SidebarMenuButton, 
   SidebarMenuItem, 
   SidebarMenuSub, 
-  SidebarMenuSubButton
+  SidebarMenuSubButton,
+  useSidebar
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
@@ -14,6 +15,7 @@ import { useState } from 'react';
 
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();
+    const { isMobile } = useSidebar();
     const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
 
     const toggleSubmenu = (title: string) => {

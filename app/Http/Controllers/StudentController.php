@@ -15,14 +15,14 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::orderBy('id', 'desc')->get();
-        return Inertia::render('students/index', [
+        return Inertia::render('Admin/students/index', [
             'students' => $students,
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('students/Create');
+        return Inertia::render('Admin/students/create');
     }
 
     public function store(Request $request)
@@ -187,7 +187,7 @@ class StudentController extends Controller
             Log::info('Étudiant et utilisateur créés avec succès. ID: ' . $student->id);
             
             return redirect()
-                ->route('students.index')
+                ->route('admin.students.index')
                 ->with('success', 'Étudiant créé avec succès !');
                 
         } catch (\Illuminate\Validation\ValidationException $e) {

@@ -6,7 +6,7 @@ import { Link, router } from '@inertiajs/react';
 import { LogOut, Settings } from 'lucide-react';
 
 interface UserMenuContentProps {
-    user: User;
+    user: User | null | undefined;
 }
 
 export function UserMenuContent({ user }: UserMenuContentProps) {
@@ -16,6 +16,20 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
         cleanup();
         router.flushAll();
     };
+
+    if (!user) {
+        return (
+            <div className="p-4 text-sm">
+                <p>Non connecté</p>
+                <DropdownMenuSeparator className="my-2" />
+                <DropdownMenuItem asChild>
+                    <Link className="block w-full" href={route('login')}>
+                        Se connecter
+                    </Link>
+                </DropdownMenuItem>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -29,7 +43,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 <DropdownMenuItem asChild>
                     <Link className="block w-full" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
                         <Settings className="mr-2" />
-                        Settings
+                        Paramètres
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -37,7 +51,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuItem asChild>
                 <Link className="block w-full" method="post" href={route('logout')} as="button" onClick={handleLogout}>
                     <LogOut className="mr-2" />
-                    Log out
+                    Se déconnecter
                 </Link>
             </DropdownMenuItem>
         </>

@@ -10,26 +10,27 @@ import AppLogo from './app-logo';
 const mainNavItems: NavItem[] = [
     {
         title: 'Tableau de bord',
-        href: '/dashboard',
+        href: '/admin/dashboard',
         icon: LayoutGrid,
     },
     {
         title: 'Etudiants',
-        href: '/students',
+        href: '/admin/students',
         icon: Users,
     },
     {
         title: 'Administration',
+        href: '#', // Using '#' since it's a dropdown
         icon: Settings,
         items: [
             {
                 title: 'Mentions & Parcours',
-                href: '/admin/mentions',
+                href: '#', // Update this with the correct route when available
                 icon: GraduationCap,
             },
             {
                 title: 'Cours',
-                href: '/admin/cours',
+                href: '#', // Update this with the correct route when available
                 icon: Book,
             },
             {
@@ -61,7 +62,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href="admin/dashboard" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
