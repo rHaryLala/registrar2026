@@ -12,9 +12,10 @@ interface UserMenuContentProps {
 export function UserMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
 
-    const handleLogout = () => {
+    const handleLogout = (e: React.FormEvent) => {
+        e.preventDefault();
         cleanup();
-        router.flushAll();
+        router.post('/logout');
     };
 
     if (!user) {
@@ -23,7 +24,10 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 <p>Non connecté</p>
                 <DropdownMenuSeparator className="my-2" />
                 <DropdownMenuItem asChild>
-                    <Link className="block w-full" href={route('login')}>
+                    <Link 
+                        href={route('login')}
+                        className="flex w-full items-center px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground"
+                    >
                         Se connecter
                     </Link>
                 </DropdownMenuItem>
@@ -32,28 +36,38 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
     }
 
     return (
-        <>
+        <div className="w-full">
             <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <div className="flex items-center gap-2 px-3 py-2 text-left text-sm">
                     <UserInfo user={user} showEmail={true} />
                 </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="my-1" />
             <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                    <Link className="block w-full" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
-                        <Settings className="mr-2" />
-                        Paramètres
+                    <Link 
+                        href="/settings/profile" 
+                        className="flex w-full items-center px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                        onClick={cleanup}
+                    >
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Paramètres</span>
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="my-1" />
             <DropdownMenuItem asChild>
-                <Link className="block w-full" method="post" href={route('logout')} as="button" onClick={handleLogout}>
-                    <LogOut className="mr-2" />
-                    Se déconnecter
-                </Link>
+                <form method="POST" action="/logout" onSubmit={handleLogout} className="w-full">
+                    <input type="hidden" name="_token" value={window.csrf_token} />
+                    <button 
+                        type="submit"
+                        className="flex w-full items-center px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                    >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Se déconnecter</span>
+                    </button>
+                </form>
             </DropdownMenuItem>
-        </>
+        </div>
     );
 }

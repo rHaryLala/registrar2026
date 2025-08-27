@@ -39,14 +39,22 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $user = $request->user();
+        
         return array_merge(parent::share($request), [
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
-                'user' => $request->user() ? [
-                    ...$request->user()->toArray(),
-                    'is_admin' => $request->user()->isAdmin(),
-                ] : null,
+                'user' => $user ? array_merge(
+                    $user->only([
+                        'id', 'name', 'email', 'email_verified_at',
+                        'created_at', 'updated_at', 'profile_photo_path'
+                    ]),
+                    [
+                        'is_admin' => $user->isAdmin(),
+                        'avatar' => $user->profile_photo_url ?? null,
+                    ]
+                ) : null,
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [

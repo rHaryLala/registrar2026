@@ -100,10 +100,10 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                 </div>
 
                 <div className="text-center text-sm text-muted-foreground">
-                    Vous n'avez pas de compte ?{' '}
+                    {/* Vous n'avez pas de compte ?{' '}
                     <TextLink href={route('register')} tabIndex={5}>
                         S'inscrire
-                    </TextLink>
+                    </TextLink> */}
                 </div>
             </form>
 

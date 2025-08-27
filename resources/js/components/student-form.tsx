@@ -294,10 +294,6 @@ export default function StudentFormModal({ open, onOpenChange, onSuccess }: Stud
         // Convertir les valeurs booléennes en '1' ou '0' pour la compatibilité avec Laravel
         if (typeof value === 'boolean') {
           formData.append(key, value ? '1' : '0')
-        } else if (value instanceof File) {
-          formData.append(key, value, value.name)
-        } else if (value instanceof Date) {
-          formData.append(key, value.toISOString().split('T')[0])
         } else {
           formData.append(key, String(value))
         }
